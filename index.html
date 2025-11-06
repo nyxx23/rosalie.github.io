@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Best Friend, Rosalie!</title>
+    
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Load Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;600;800&family=Patrick+Hand&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Custom font families for Tailwind */
+        .font-bangers {
+            font-family: 'Bangers', cursive;
+            letter-spacing: 2px;
+        }
+        .font-patrick-hand {
+            font-family: 'Patrick Hand', cursive;
+        }
+        
+        /* Pastel Spongebob-themed background */
+        body {
+            background-image: url('https://placehold.co/1920x1080/C6E2FF/FFF8DC?text=Bikini+Bottom+Sky&font=Bangers'); /* Pastel blue sky */
+            background-repeat: repeat;
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Jellyfish Animation */
+        @keyframes float {
+            0% { transform: translateY(0px) translateX(0px); }
+            50% { transform: translateY(-20px) translateX(10px); }
+            100% { transform: translateY(0px) translateX(0px); }
+        }
+
+        .jellyfish {
+            position: absolute;
+            background-color: rgba(255, 192, 203, 0.7); /* Pastel Pink */
+            border-radius: 50%;
+            animation: float 5s ease-in-out infinite alternate;
+            opacity: 0.8;
+            pointer-events: none; /* Allows clicks to pass through */
+            z-index: 0; /* Keep behind content */
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+        .jellyfish::before {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            left: 20%;
+            width: 60%;
+            height: 50%;
+            background-color: inherit;
+            border-radius: 0 0 50% 50%;
+            opacity: 0.7;
+        }
+        .jellyfish::after {
+            content: '';
+            position: absolute;
+            bottom: -50%;
+            left: 30%;
+            width: 40%;
+            height: 80%;
+            background-color: rgba(255, 255, 255, 0.5); /* White tentacles */
+            border-radius: 0 0 50% 50%;
+        }
+
+        /* More colorful jellyfish variants */
+        .jellyfish-blue { background-color: rgba(173, 216, 230, 0.7); } /* Light Blue */
+        .jellyfish-purple { background-color: rgba(221, 160, 221, 0.7); } /* Plum/Pastel Purple */
+        .jellyfish-green { background-color: rgba(144, 238, 144, 0.7); } /* Light Green */
+        .jellyfish-orange { background-color: rgba(255, 223, 186, 0.7); } /* Peach/Pastel Orange */
+
+        /* Specific for the little play button in the corner */
+        .audio-corner-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000; /* Ensure it's above everything */
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            padding: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+        }
+        .audio-corner-button:hover {
+            transform: scale(1.1);
+        }
+        .audio-corner-button svg {
+            width: 30px;
+            height: 30px;
+            fill: #87CEFA; /* Light Sky Blue */
+        }
+
+    </style>
+</head>
+<body class="font-patrick-hand text-lg text-gray-800">
+
+    <!-- Audio Player -->
+    <audio id="spongebob-audio" loop preload="auto">
+        <!-- 
+        *** ACTION REQUIRED: PASTE YOUR GITHUB "RAW" LINK HERE ***
+        Example Raw Link: https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/YOUR_AUDIO_FILE.mp3
+        -->
+        <source src="https://raw.githubusercontent.com/nyxx23/rosalie.github.io/main/SpongeBob Music_ All You Need is Friends to Fly (Instrumental).mp3" type="audio/mpeg">
+        
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Play/Pause Button -->
+    <button id="toggle-music-btn" class="audio-corner-button">
+        <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M8 5v14l11-7z"/>
+        </svg>
+        <svg id="pause-icon" class="hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+        </svg>
+    </button>
+
+    <!-- Main Content -->
+    <div class="container mx-auto p-4 md:p-8 min-h-screen flex items-center justify-center">
+
+        <!-- Spongebob Card -->
+        <main class="bg-pink-200 border-8 border-yellow-300 rounded-3xl shadow-2xl max-w-3xl w-full my-8 p-6 md:p-10 relative z-10">
+            
+            <!-- Pores -->
+            <div class="pore bg-pink-300/60 rounded-full absolute w-12 h-12 top-20 left-10 hidden md:block"></div>
+            <div class="pore bg-blue-300/60 rounded-full absolute w-8 h-8 top-10 right-16"></div>
+            <div class="pore bg-yellow-200/60 rounded-full absolute w-16 h-16 bottom-10 left-16 hidden md:block"></div>
+            <div class="pore bg-pink-300/60 rounded-full absolute w-10 h-10 bottom-24 right-10"></div>
+            <div class="pore bg-blue-300/60 rounded-full absolute w-8 h-8 top-32 right-24 hidden md:block"></div>
+
+            <!-- Header -->
+            <header class="relative z-10">
+                
+                <!-- This placeholder mimics the "Bestie Vibes" pineapple image -->
+                <img src="https://placehold.co/150x150/FFDAB9/87CEFA?text=Bestie+Vibes+%0A+%F0%9F%8D%8D&font=Bangers" 
+                     alt="Bestie Vibes with Pineapple House"
+                     class="w-32 h-32 md:w-40 md:h-40 rounded-full mx-auto border-4 border-white shadow-lg -mt-20 md:-mt-24">
+                
+                <h1 class="font-bangers text-5xl md:text-7xl text-pink-700 text-center mt-4 mb-1 drop-shadow-lg">
+                    For My Best Friend!
+                </h1>
+                <p class="font-bangers text-2xl md:text-3xl text-blue-600 font-semibold text-center mb-6 drop-shadow-md">
+                    A Special Message from Bikini Bottom!
+                </p>
+            </header>
+
+            <!-- Letter Section -->
+            <section class="bg-white rounded-2xl shadow-inner p-6 md:p-8 m-4 border-2 border-blue-300 relative z-10">
+                <h2 class="font-bangers text-3xl md:text-4xl text-gray-800 mb-4 text-center">A Letter For You 💌</h2>
+                
+                <!-- Your Letter Content -->
+                <div id="letter-content" class="font-patrick-hand text-xl md:text-2xl text-gray-700 space-y-4 p-4 rounded-lg">
+                    <p>To the one I wished for,</p>
+                    <p>Hey baeeee! First and foremost, I am glad that a lot of us are here for you on your special day. Although it may not be done in person, I can't wait to finally be there and enjoy with you. It's quite funny, because everytime I see B99, The Legacies, Danielle Rose Russell, Lara Raj, SpongeBob, Toy Story or even listen to Kali Uchis, Childish Gambino, and those good Bruno Mars songs, I remember you. Even up to the orange lid peanut butter and the malunggay buns or to the Mang Inasal store I always pass by when I get home, I remember you. Maybe its my separation anxiety talking or the fact that I have gotten so used to be with you for 9 hours that your entire presence has long been engraved in my consciousness. But I miss you, a loooooot. I saw this video wherein a guy was talking about how we should never let go of that person who figures us from in and out, that alone made me think of you. All throughout my life, I only wished for a few things. There were for my academics, career, family. But that one thing I sincerely wish for the most was to have someone to truly know me, see me, and still be with me even if I am not what I seem to be. I realized, it took me 18 years to finally found you. Even if it quite sucked to not know you that sooner, I figured it was just the right time. Because you are worth the wait bae. You will always be. It was our friendship that I am most thankful for and the heaven knows I ain't gonna let go of you ever haha. Through our highs and lows especially this summer, I am and will eternally be grateful I am with you during those times. I sincerely hope you know how much your presence impacted my life from here on out. Or how much I always read those letters you sent me everytime I feel the world was taking out its wrath on me. It seems I also cling to such nostalgia too. But rather than just clinging to those good old days, I'd prefer making new memorable ones with you. Because just as how you are there for me, I am and will always be there for you. Because just as how much you see right through me, I also see right through yourself too. I have never known someone to ever see me for who I am, more than you do. And if multiverse exist, I always know I am going to look for you, even on the different versions of yourself. Our friendship may not be perfect at all times, I hope you do know when things get rough, I would never give up on you. Not now, not ever. Because as you just said, if loving is a choice, I would certainly choose you. After all, you are Rosalie Clare Cuer Belonguel. The one I wished for. Happiest birthday to you bae! Cheers to more special days to come!</p>
+<p>With much love and care, August Laine</p>
+                </div>
+                
+            </section>
+
+            <!-- Bikini Bottom Crew Section -->
+            <section class="mt-10 relative z-10">
+                <h3 class="font-bangers text-3xl md:text-4xl text-pink-700 text-center mb-6">Our Bikini Bottom Crew</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center px-4">
+                    
+                    <!-- Patrick -->
+                    <div>
+                        <img src="https://placehold.co/100x100/FFB6C1/FFDAB9?text=Patrick&font=Bangers" alt="Pastel Patrick" class="w-24 h-24 rounded-full border-4 border-white shadow-md mx-auto transform hover:rotate-12 transition-transform">
+                        <p class="font-bangers text-xl text-yellow-800 mt-2">The Bestie</p>
+                    </div>
+                    
+                    <!-- Squidward -->
+                    <div>
+                        <img src="https://placehold.co/100x100/ADD8E6/AFEEEE?text=Squidward&font=Bangers" alt="Pastel Squidward" class="w-24 h-24 rounded-full border-4 border-white shadow-md mx-auto transform hover:scale-110 transition-transform">
+                        <p class="font-bangers text-xl text-yellow-800 mt-2">The Mood</p>
+                    </div>
+                    
+                    <!-- Mr. Krabs -->
+                    <div>
+                        <img src="https://placehold.co/100x100/FFDEAD/D2B48C?text=Mr.+Krabs&font=Bangers" alt="Pastel Mr. Krabs" class="w-24 h-24 rounded-full border-4 border-white shadow-md mx-auto transform hover:scale-110 transition-transform">
+                        <p class="font-bangers text-xl text-yellow-800 mt-2">The Hustler</p>
+                    </div>
+                    
+                    <!-- Sandy -->
+                    <div>
+                        <img src="https://placehold.co/100x100/E0BBE4/957DAD?text=Sandy&font=Bangers" alt="Pastel Sandy" class="w-24 h-24 rounded-full border-4 border-white shadow-md mx-auto transform hover:rotate-12 transition-transform">
+                        <p class="font-bangers text-xl text-yellow-800 mt-2">The Brains</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="text-center mt-10 relative z-10">
+                <p class="font-patrick-hand text-base text-yellow-700/80">
+                    Made with 💛 from August Laine
+                </p>
+            </footer>
+
+        </main>
+    </div>
+
+    <!-- Jellyfish Container -->
+    <div id="jellyfish-container"></div>
+
+    <script>
+        // Audio playback logic
+        const audio = document.getElementById('spongebob-audio');
+        const toggleMusicBtn = document.getElementById('toggle-music-btn');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+
+        let isPlaying = false;
+
+        toggleMusicBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                audio.pause();
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
+                isPlaying = false;
+            } else {
+                audio.play().then(() => {
+                    playIcon.classList.add('hidden');
+                    pauseIcon.classList.remove('hidden');
+                    isPlaying = true;
+                }).catch(error => {
+                    console.error("Audio playback failed:", error);
+                    // Inform the user if the audio failed to load/play.
+                    // Using a custom message box instead of alert()
+                    const messageBox = document.createElement('div');
+                    messageBox.innerHTML = '<div style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9999;display:flex;align-items:center;justify-content:center;"><div style="background:#fff;padding:20px;border-radius:10px;box-shadow:0 5px 15px rgba(0,0,0,0.3);text-align:center;">Music failed to load! Please ensure your GitHub "Raw" link is correct and accessible. <button onclick="this.parentNode.parentNode.remove()" style="margin-top:10px;padding:8px 15px;background:#87CEFA;color:#fff;border:none;border-radius:5px;cursor:pointer;">OK</button></div></div>';
+                    document.body.appendChild(messageBox);
+                });
+            }
+        });
+        
+        // Update icon if music ends on its own (though it's looping)
+        audio.addEventListener('pause', () => {
+            playIcon.classList.remove('hidden');
+            pauseIcon.classList.add('hidden');
+            isPlaying = false;
+        });
+
+        // Jellyfish generation
+        const jellyfishContainer = document.getElementById('jellyfish-container');
+        const jellyfishColors = ['jellyfish', 'jellyfish-blue', 'jellyfish-purple', 'jellyfish-green', 'jellyfish-orange'];
+
+        function createJellyfish() {
+            const jellyfish = document.createElement('div');
+            jellyfish.classList.add('jellyfish');
+            jellyfish.classList.add(jellyfishColors[Math.floor(Math.random() * jellyfishColors.length)]);
+            
+            const size = Math.random() * 60 + 40; // Size between 40px and 100px
+            jellyfish.style.width = `${size}px`;
+            jellyfish.style.height = `${size}px`;
+            jellyfish.style.left = `${Math.random() * 100}vw`;
+            jellyfish.style.top = `${Math.random() * 100}vh`;
+            jellyfish.style.animationDelay = `${Math.random() * -5}s`; // Stagger animation start
+            jellyfish.style.animationDuration = `${Math.random() * 8 + 5}s`; // Duration between 5s and 13s
+
+            jellyfishContainer.appendChild(jellyfish);
+
+            // Periodically reposition jellyfish to keep them appearing
+            setTimeout(() => {
+                // Instead of removing, reposition for continuous effect
+                jellyfish.style.left = `${Math.random() * 100}vw`;
+                jellyfish.style.top = `${Math.random() * 100}vh`;
+                jellyfish.style.animationDelay = `${Math.random() * -5}s`;
+            }, (parseFloat(jellyfish.style.animationDuration) * 1000) * (Math.random() * 0.5 + 1)); // Reposition after 1 to 1.5 cycles
+        }
+
+        // Create a good number of jellyfish initially
+        for (let i = 0; i < 15; i++) {
+            createJellyfish();
+        }
+
+    </script>
+
+</body>
+</html>
+
+              
