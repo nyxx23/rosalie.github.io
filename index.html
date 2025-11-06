@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For My Best Friend, Rosalie!</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Patrick+Hand&display=swap" rel="stylesheet">
+
+  <style>
+    /* Font Styles */
+    .font-bangers { font-family: 'Bangers', cursive; letter-spacing: 2px; }
+    .font-patrick-hand { font-family: 'Patrick Hand', cursive; }
+
+    /* SpongeBob Flower Sky Background */
+    body {
+      background-color: #c6e2ff;
+      background-image:
+        radial-gradient(circle at 10% 20%, rgba(255,255,255,0.35) 5%, transparent 8%),
+        radial-gradient(circle at 80% 10%, rgba(255,255,255,0.35) 5%, transparent 8%),
+        radial-gradient(circle at 30% 80%, rgba(255,255,255,0.35) 5%, transparent 8%),
+        radial-gradient(circle at 60% 60%, rgba(255,255,255,0.35) 5%, transparent 8%),
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600"><g opacity="0.25"><path d="M300,100 C325,130 375,130 400,100 C425,70 425,20 400,0 C375,-20 325,-20 300,0 C275,20 275,70 300,100Z" fill="%23FFD6E8"/><path d="M150,250 C170,280 230,280 250,250 C270,220 270,170 250,150 C230,130 170,130 150,150 C130,170 130,220 150,250Z" fill="%23E0BBE4"/><path d="M450,400 C470,430 530,430 550,400 C570,370 570,320 550,300 C530,280 470,280 450,300 C430,320 430,370 450,400Z" fill="%23B5EAD7"/></g></svg>');
+      background-repeat: repeat;
+      background-size: 800px 800px;
+      background-attachment: fixed;
+      overflow-x: hidden;
+    }
+
+    /* Floating Bubbles */
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      animation: rise 10s infinite ease-in;
+      opacity: 0.8;
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes rise {
+      0% { transform: translateY(0) scale(1); opacity: 0.8; }
+      100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
+    }
+
+    /* Jellyfish Animation */
+    @keyframes float {
+      0% { transform: translateY(0) translateX(0); }
+      50% { transform: translateY(-20px) translateX(10px); }
+      100% { transform: translateY(0) translateX(0); }
+    }
+    .jellyfish {
+      position: absolute;
+      background-color: rgba(255, 192, 203, 0.7);
+      border-radius: 50%;
+      animation: float 5s ease-in-out infinite alternate;
+      opacity: 0.8;
+      pointer-events: none;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+      z-index: 0;
+    }
+    .jellyfish-blue { background-color: rgba(173, 216, 230, 0.7); }
+    .jellyfish-purple { background-color: rgba(221, 160, 221, 0.7); }
+    .jellyfish-green { background-color: rgba(144, 238, 144, 0.7); }
+    .jellyfish-orange { background-color: rgba(255, 223, 186, 0.7); }
+
+    /* Music Button */
+    .audio-corner-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      background-color: rgba(255, 255, 255, 0.7);
+      border-radius: 50%;
+      padding: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: transform 0.2s ease-in-out;
+    }
+    .audio-corner-button:hover { transform: scale(1.1); }
+    .audio-corner-button svg { width: 30px; height: 30px; fill: #87CEFA; }
+
+    /* Letter justification */
+    #letter-content p {
+      text-align: justify;
+      text-justify: inter-word;
+    }
+  </style>
+</head>
+
+<body class="font-patrick-hand text-lg text-gray-800">
+
+  <!-- Bubble Container -->
+  <div id="bubble-container"></div>
+
+  <!-- Background Jellyfish -->
+  <div id="jellyfish-container"></div>
+
+  <!-- Audio Player -->
+  <audio id="spongebob-audio" loop preload="auto">
+    <source src="https://raw.githubusercontent.com/nyxx23/rosalie.github.io/main/SpongeBob%20Music_%20All%20You%20Need%20is%20Friends%20to%20Fly%20(Instrumental).mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Music Toggle -->
+  <button id="toggle-music-btn" class="audio-corner-button">
+    <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+    <svg id="pause-icon" class="hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+  </button>
+
+  <!-- Main Content -->
+  <div class="container mx-auto p-4 md:p-8 min-h-screen flex items-center justify-center">
+    <main class="bg-pink-200 border-8 border-yellow-300 rounded-3xl shadow-2xl max-w-3xl w-full my-8 p-6 md:p-10 relative z-10">
+
+      <!-- Header -->
+      <header class="relative z-10">
+        <img src="https://upload.wikimedia.org/wikipedia/en/3/3b/SpongeBob_SquarePants_character.svg"
+             alt="SpongeBob"
+             class="w-32 h-32 md:w-40 md:h-40 rounded-full mx-auto border-4 border-white shadow-lg -mt-20 md:-mt-24 bg-yellow-200 p-2">
+
+        <h1 class="font-bangers text-5xl md:text-7xl text-pink-700 text-center mt-4 mb-1 drop-shadow-lg">
+          For My Best Friend!
+        </h1>
+        <p class="font-bangers text-2xl md:text-3xl text-blue-600 text-center mb-6 drop-shadow-md">
+          A Special Message from Bikini Bottom 🌸
+        </p>
+      </header>
+
+      <!-- Letter -->
+      <section class="bg-white rounded-2xl shadow-inner p-6 md:p-8 m-4 border-2 border-blue-300 relative z-10">
+        <h2 class="font-bangers text-3xl md:text-4xl text-gray-800 mb-4 text-center">A Letter For You 💌</h2>
+        <div id="letter-content" class="font-patrick-hand text-xl md:text-2xl text-gray-700 space-y-4 p-4 rounded-lg">
+          <p>To the one I wished for,</p>
+          <p>Hey baeeee! First and foremost, I am glad that a lot of us are here for you on your special day. Although it may not be done in person, I can't wait to finally be there and enjoy with you...</p>
+          <p>With much love and care,<br>August Laine</p>
+        </div>
+      </section>
+
+      <!-- Crew -->
+      <section class="mt-10 relative z-10">
+        <h3 class="font-bangers text-3xl md:text-4xl text-pink-700 text-center mb-6">Our Bikini Bottom Crew</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center px-4">
+          <div>
+            <img src="https://static.wikia.nocookie.net/spongebob/images/2/26/Patrick_Star.png"
+                 class="w-24 h-24 rounded-full border-4 border-white shadow-md mx-auto transform hover:rotate-12 transition-transform bg-pink-200 p-2">
+            <p class="font-bangers text-xl text-yellow-800 mt-2">The Bestie</p>
+          </div>
+          <div>
+            <img src="https://static.wikia.nocookie.net/spongebob/images/f/f0/Squidward_Tentacles.png"
+                 class="w-24 h-24 rounded-full border-4 border-white shadow-md mx-auto transform hover:scale-110 transition-transform bg-blue-200 p-2">
+            <p class="font-bangers text-xl text-yellow-800 mt-2">The Mood</p>
+          </div>
+          <div>
+            <img src="https://static.wikia.nocookie.net/spongebob/images/f/fd/Mr._Krabs.png"
+                 class="w-24 h-24 rounded-full border-4 border-white shadow-md mx-auto transform hover:scale-110 transition-transform bg-red-100 p-2">
+            <p class="font-bangers text-xl text-yellow-800 mt-2">The Hustler</p>
+          </div>
+          <div>
+            <img src="https://static.wikia.nocookie.net/spongebob/images/0/0a/Sandy_Cheeks.png"
+                 class="w-24 h-24 rounded-full border-4 border-white shadow-md mx-auto transform hover:rotate-12 transition-transform bg-purple-100 p-2">
+            <p class="font-bangers text-xl text-yellow-800 mt-2">The Brains</p>
+          </div>
+        </div>
+      </section>
+
+      <footer class="text-center mt-10 relative z-10">
+        <p class="font-patrick-hand text-base text-yellow-700/80">
+          Made with 💛 from August Laine (and SpongeBob SquarePants)
+        </p>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // Audio
+    const audio = document.getElementById('spongebob-audio');
+    const toggleBtn = document.getElementById('toggle-music-btn');
+    const playIcon = document.getElementById('play-icon');
+    const pauseIcon = document.getElementById('pause-icon');
+    let isPlaying = false;
+
+    toggleBtn.addEventListener('click', () => {
+      if (isPlaying) {
+        audio.pause();
+        playIcon.classList.remove('hidden');
+        pauseIcon.classList.add('hidden');
+        isPlaying = false;
+      } else {
+        audio.play();
+        playIcon.classList.add('hidden');
+        pauseIcon.classList.remove('hidden');
+        isPlaying = true;
+      }
+    });
+
+    // Jellyfish
+    const jellyfishContainer = document.getElementById('jellyfish-container');
+    const jellyfishColors = ['jellyfish', 'jellyfish-blue', 'jellyfish-purple', 'jellyfish-green', 'jellyfish-orange'];
+    for (let i = 0; i < 10; i++) {
+      const j = document.createElement('div');
+      j.classList.add(jellyfishColors[Math.floor(Math.random()*jellyfishColors.length)]);
+      const size = Math.random() * 60 + 40;
+      j.style.width = `${size}px`;
+      j.style.height = `${size}px`;
+      j.style.left = `${Math.random()*100}vw`;
+      j.style.top = `${Math.random()*100}vh`;
+      j.style.animationDelay = `${Math.random()*-5}s`;
+      jellyfishContainer.appendChild(j);
+    }
+
+    // Bubbles
+    const bubbleContainer = document.getElementById('bubble-container');
+    for (let i = 0; i < 20; i++) {
+      const bubble = document.createElement('div');
+      const size = Math.random() * 30 + 10;
+      bubble.classList.add('bubble');
+      bubble.style.width = `${size}px`;
+      bubble.style.height = `${size}px`;
+      bubble.style.left = `${Math.random() * 100}vw`;
+      bubble.style.bottom = `-${size}px`;
+      bubble.style.animationDuration = `${Math.random() * 10 + 5}s`;
+      bubbleContainer.appendChild(bubble);
+    }
+  </script>
+</body>
+</html>
